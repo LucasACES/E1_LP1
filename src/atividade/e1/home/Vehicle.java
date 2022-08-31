@@ -8,7 +8,7 @@ public class Vehicle {
     private String carModel;
 
 
-    // Acess methods
+    // Access methods
     public String getCarColor() {
         return carColor;
     }
@@ -40,7 +40,10 @@ public class Vehicle {
     public void setLicensePlate(String licensePlate) {
         this.licensePlate = licensePlate;
     }
-
+    
+    public static void Values(String SetLicensePlate) {
+    	
+    }
     public static void main(String[] args) {
         
     }
