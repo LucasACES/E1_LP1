@@ -1,6 +1,7 @@
 package atividade.e1.home;
 
 import atividade.e1.home.Vehicle;
+import atividade.e1.home.CSVFile;
 
 import java.awt.EventQueue;
 
@@ -132,9 +133,14 @@ public class Index {
 				EnterLicensePlate.setForeground(new Color(80, 80, 80));
 				Sucess.setForeground(new Color(0, 128, 0));
 				
-				/*System.out.println("Car: " + v1.getCarColor()+ "\nModel: "
-						+ v1.getCarModel() + "\nType: " + v1.getCarType()
-						+ "\nLicense Plate: " + v1.getLicensePlate()); */
+				CSVFile cria = new CSVFile();
+				try {
+					cria.criar(v1.getCarColor(), v1.getCarModel(), v1.getCarType(), v1.getLicensePlate());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 			}
 		});
 		btnNewButton.setForeground(new Color(0, 0, 0));
