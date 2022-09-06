@@ -1,4 +1,5 @@
 package atividade.e1.home;
+import javax.swing.JFormattedTextField;
 
 public class Vehicle {
     // Variables
