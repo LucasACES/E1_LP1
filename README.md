@@ -18,3 +18,9 @@
 
 ### Running:
 
+<img src="https://github.com/LucasACES/E1_LP1/blob/master/ExtraContent/example.gif">
+
+
+
+### How Use?
+- Clone the folder and open using a eclipse IDE, then run the Index.java
