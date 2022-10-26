@@ -22,16 +22,24 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Dictionary;
 
 import javax.swing.JLabel;
 import java.awt.Label;
 import java.awt.Button;
+import java.awt.SystemColor;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 public class Index {
 
 	private JFrame frame;
 	ArrayList<String> vehicleList = new ArrayList();
 	HashSet<String> vehicleHash	= new HashSet();
+	HashMap<String,String>vehicleDict = new HashMap();
+	
 
 	/**
 	 * Launch the application.
@@ -60,11 +68,10 @@ public class Index {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	@SuppressWarnings("deprecation")
 	private void initialize() {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(Color.WHITE);
-		frame.setBounds(100, 100, 393, 282);
+		frame.setBounds(100, 100, 1000, 282);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
@@ -110,6 +117,20 @@ public class Index {
 		JFormattedTextField EnterLicensePlate = new JFormattedTextField();
 		EnterLicensePlate.setBounds(116, 144, 204, 20);
 		frame.getContentPane().add(EnterLicensePlate);
+		
+		JTextArea textPane = new JTextArea();
+		textPane.setEditable(false);
+		textPane.setBackground(SystemColor.info);
+		textPane.setBounds(346, 69, 628, 144);
+		frame.getContentPane().add(textPane);
+		
+		
+		JTextPane txtpnOutput = new JTextPane();
+		txtpnOutput.setText("Output:");
+		txtpnOutput.setFont(new Font("Georgia", Font.BOLD, 18));
+		txtpnOutput.setEditable(false);
+		txtpnOutput.setBounds(623, 16, 76, 35);
+		frame.getContentPane().add(txtpnOutput);
 
 		Label Sucess = new Label("Sucess !!!");
 		Sucess.setForeground(new Color(255, 255, 255));
@@ -132,33 +153,35 @@ public class Index {
 				 * v1.getLicensePlate();
 				 */
 				
-				int sizeVehicle = vehicleList.size();
-				vehicleList.add("Model: " + EnterModel.getText() + " Type: " + EnterType.getText() + " Color: " + EnterColor.getText() + " License Plate: " + EnterLicensePlate.getText());
+				// ArrayList
+				vehicleList.add(EnterModel.getText());
+				vehicleList.add(EnterType.getText());
+				vehicleList.add(EnterColor.getText());
+				vehicleList.add(EnterLicensePlate.getText());
 				
-				System.out.println("ArrayList" + vehicleList);
+				// HashSet
+				vehicleHash.add(EnterModel.getText());
+				vehicleHash.add(EnterType.getText());
+				vehicleHash.add(EnterColor.getText());
+				vehicleHash.add(EnterLicensePlate.getText());
 				
-				vehicleHash.add("Model: " + EnterModel.getText() + " Type: " + EnterType.getText() + " Color: " + EnterColor.getText() + " License Plate: " + EnterLicensePlate.getText());
+				// Dicionario
+				vehicleDict.put("Model", EnterModel.getText());
+				vehicleDict.put("Type", EnterType.getText());
+				vehicleDict.put("Color", EnterColor.getText());
+				vehicleDict.put("License Plate", EnterLicensePlate.getText());
 				
-				System.out.println("Hash" + vehicleHash);
+				//System.out.println(vehicleDict.get("License Plate"));
+				
+				textPane.setText("ArrayList: " + vehicleList + "\r\n" +  "" + "\r\n" + "Hash: " + vehicleHash + "\r\n" +  "" + "\r\n" + "Dicionario: " + vehicleDict);
+				
 				
 				EnterModel.setText("");
 				EnterColor.setText("");
 				EnterType.setText("");
 				EnterLicensePlate.setText("");
 				
-				/*
-				 * EnterColor.enable(false); EnterModel.enable(false); EnterType.enable(false);
-				 * EnterLicensePlate.enable(false); EnterColor.setForeground(new Color(80, 80,
-				 * 80)); EnterModel.setForeground(new Color(80, 80, 80));
-				 * EnterType.setForeground(new Color(80, 80, 80));
-				 * EnterLicensePlate.setForeground(new Color(80, 80, 80));
-				 * Sucess.setForeground(new Color(0, 128, 0));
-				 */
-
-				/*
-				 * DataModeler array = new DataModeler();
-				 * array.arrayVehicleBuild(objectVehicle);
-				 */
+				
 			}
 		});
 		btnNewButton.setForeground(new Color(0, 0, 0));
@@ -166,24 +189,11 @@ public class Index {
 		btnNewButton.setBounds(111, 190, 89, 23);
 		frame.getContentPane().add(btnNewButton);
 
-		JButton btnLeave = new JButton("Clear");
+		JButton btnLeave = new JButton("Exit");
 		btnLeave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				EnterModel.setText("");
-				EnterColor.setText("");
-				EnterType.setText("");
-				EnterLicensePlate.setText("");
-				EnterColor.enable(true);
-				EnterModel.enable(true);
-				EnterType.enable(true);
-				EnterLicensePlate.enable(true);
-				EnterColor.setForeground(new Color(0, 0, 0));
-				EnterModel.setForeground(new Color(0, 0, 0));
-				EnterType.setForeground(new Color(0, 0, 0));
-				EnterLicensePlate.setForeground(new Color(0, 0, 0));
-
-				Sucess.setForeground(new Color(255, 255, 255));
+				frame.dispose();
 
 			}
 		});
@@ -191,6 +201,10 @@ public class Index {
 		btnLeave.setBackground(Color.RED);
 		btnLeave.setBounds(210, 190, 66, 23);
 		frame.getContentPane().add(btnLeave);
+		
+
+		
+		
 
 	}
 }
