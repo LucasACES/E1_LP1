@@ -26,6 +26,8 @@ import java.util.HashMap;
 import java.util.Dictionary;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Label;
 import java.awt.Button;
 import java.awt.SystemColor;
@@ -36,8 +38,8 @@ import javax.swing.JTextArea;
 public class Index {
 
 	private JFrame frame;
-	ArrayList<String> vehicleList = new ArrayList();
-	HashSet<String> vehicleHash	= new HashSet();
+	ArrayList<Vehicle> vehicleList = new ArrayList();
+	HashSet<Vehicle> vehicleHash	= new HashSet();
 	HashMap<String,String>vehicleDict = new HashMap();
 	
 
@@ -71,7 +73,7 @@ public class Index {
 	private void initialize() {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(Color.WHITE);
-		frame.setBounds(100, 100, 1000, 282);
+		frame.setBounds(100, 100, 600, 282);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
@@ -117,20 +119,34 @@ public class Index {
 		JFormattedTextField EnterLicensePlate = new JFormattedTextField();
 		EnterLicensePlate.setBounds(116, 144, 204, 20);
 		frame.getContentPane().add(EnterLicensePlate);
+
+		Label search = new Label("Busca: ");
+		search.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		search.setBounds(350, 69, 42, 22);
+		frame.getContentPane().add(search);
+
+		JFormattedTextField EnterSearch = new JFormattedTextField();
+		EnterSearch.setBounds(395, 70, 150, 20);
+		frame.getContentPane().add(EnterSearch);
+
+		JButton btnSearchButton = new JButton("Buscar");
+		btnSearchButton.setForeground(new Color(0, 0, 0));
+		btnSearchButton.setBackground(new Color(152, 251, 152));
+		btnSearchButton.setBounds(410, 100, 89, 23);
+		btnSearchButton.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				
+				JFrame jFrame = new JFrame();
+				String placa = EnterSearch.getText();
+				JOptionPane.showMessageDialog(jFrame, ("Model: "+ vehicleDict.get(placa)));
+				EnterSearch.setText("");
+				
+			}
+		});
+
+		frame.getContentPane().add(btnSearchButton);
 		
-		JTextArea textPane = new JTextArea();
-		textPane.setEditable(false);
-		textPane.setBackground(SystemColor.info);
-		textPane.setBounds(346, 69, 628, 144);
-		frame.getContentPane().add(textPane);
-		
-		
-		JTextPane txtpnOutput = new JTextPane();
-		txtpnOutput.setText("Output:");
-		txtpnOutput.setFont(new Font("Georgia", Font.BOLD, 18));
-		txtpnOutput.setEditable(false);
-		txtpnOutput.setBounds(623, 16, 76, 35);
-		frame.getContentPane().add(txtpnOutput);
 
 		Label Sucess = new Label("Sucess !!!");
 		Sucess.setForeground(new Color(255, 255, 255));
@@ -142,38 +158,26 @@ public class Index {
 
 			public void actionPerformed(ActionEvent e) {
 
-				/*
-				 * Vehicle v1 = new Vehicle(); v1.setCarColor(EnterColor.getText());
-				 * v1.setCarModel(EnterModel.getText()); v1.setCarType(EnterType.getText());
-				 * v1.setLicensePlate(EnterLicensePlate.getText());
-				 * 
-				 * 
-				 * String objectVehicle = "Model: " + v1.getCarModel() + " Type: " +
-				 * v1.getCarType() + " Color: " + v1.getCarColor() + " License Plate: " +
-				 * v1.getLicensePlate();
-				 */
 				
-				// ArrayList
-				vehicleList.add(EnterModel.getText());
-				vehicleList.add(EnterType.getText());
-				vehicleList.add(EnterColor.getText());
-				vehicleList.add(EnterLicensePlate.getText());
+				Vehicle v1 = new Vehicle(); 
+				v1.setCarColor(EnterColor.getText());
+				v1.setCarModel(EnterModel.getText()); 
+				v1.setCarType(EnterType.getText());
+				v1.setLicensePlate(EnterLicensePlate.getText());
+				  
+				//ArrayList
+				vehicleList.add(v1);
+				
 				
 				// HashSet
-				vehicleHash.add(EnterModel.getText());
-				vehicleHash.add(EnterType.getText());
-				vehicleHash.add(EnterColor.getText());
-				vehicleHash.add(EnterLicensePlate.getText());
+				vehicleHash.add(v1);
 				
 				// Dicionario
-				vehicleDict.put("Model", EnterModel.getText());
-				vehicleDict.put("Type", EnterType.getText());
-				vehicleDict.put("Color", EnterColor.getText());
-				vehicleDict.put("License Plate", EnterLicensePlate.getText());
+				vehicleDict.put(v1.getLicensePlate(), v1.getCarModel());
+			
 				
 				//System.out.println(vehicleDict.get("License Plate"));
 				
-				textPane.setText("ArrayList: " + vehicleList + "\r\n" +  "" + "\r\n" + "Hash: " + vehicleHash + "\r\n" +  "" + "\r\n" + "Dicionario: " + vehicleDict);
 				
 				
 				EnterModel.setText("");
